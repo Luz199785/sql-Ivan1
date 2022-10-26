@@ -1,11 +1,40 @@
-
-Luz Adriana Moreno <luzadrianamoreno97@gmail.com>
-mar, 25 oct, 22:10 (hace 11 horas)
-para mí
-
+4 punto:
 SELECT RH, COUNT(*) FROM AFILIADOS INNER JOIN TIPO_SANGRE ON TIP_SAN_RH = RH
 GROUP BY RH
 ORDER BY COUNT(*) DESC
+
+2 punto:
+-SELECT DISTINCT PRIMER_NOMBRE, TIP_SAN_RH FROM AFILIADOS;
+-SELECT DISTINCT ciudad FROM clientes;
+-SELECT DISTINCT estado, ciudad FROM afiliados WHERE estado IS NOT NULL ORDER BY 
+ estado;
+ 
+ --La consulta siguiente devuelve valores distintos de la consulta de la t1tabla que no se encuentran en el resultado de la consulta de la t2tabla.
+ SELECT id FROM t1 
+ MINUS
+ SELECT id FROM t2;
+ --MySQL no es compatible MINUScon el operador. Sin embargo, puede usar JOIN para emularlo.
+ SELECT id
+ FROM t1
+ LEFT JOIN
+ t2 USING (id)
+ --SSELECT column_list FROM table1  
+LEFT JOIN table2 ON condition  
+WHERE table2.column_name IS NULL; 
+
+El operador EXISTS en MySQL es un tipo de operador booleano que devuelve el resultado verdadero o falso 
+-SELECT name, occupation FROM customer  
+WHERE EXISTS (SELECT * FROM Orders   
+WHERE customer.cust_id = Orders.cust_id);  
+-DELETE FROM Orders WHERE EXISTS (  
+SELECT * FROM customer   
+WHERE order_id=3);  
+--La siguiente instrucción SQL devuelve VERDADERO y enumera los proveedores con un precio de producto inferior a 20:
+SELECT nombreProvedor
+FROM provedor
+WHERE EXISTS (SELECT Nombre_Producto FROM Productos WHERE Productos.clientesID = provedor.provedorID AND precio < 20);
+
+
 
 SELECT * FROM AFILIADOS WHERE DOCUMENTO IN (
 SELECT DOCUMENTO FROM AFILIADOS WHERE APELLIDO = MORENO
